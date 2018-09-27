@@ -1,0 +1,178 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
+.confirm,
+.next,
+.add_to_cart,
+.checkout {
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: $btn-border-width solid transparent;
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+  @include transition($btn-transition);
+  
+  // Share hover and focus styles
+  @include hover-focus {
+    text-decoration: none;
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    box-shadow: $btn-focus-box-shadow;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    opacity: $btn-disabled-opacity;
+    @include box-shadow(none);
+  }
+
+  // Opinionated: add "hand" cursor to non-disabled .btn elements
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background-image: none;
+    @include box-shadow($btn-active-box-shadow);
+
+    &:focus {
+      @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    }
+  }
+  @include button-variant($primary, $primary);
+    
+}
+
+
+// Future-proof disabling of clicks on `<a>` elements
+a.confirm.disabled,
+a.next.disabled,
+a.add_to_cart.disabled,
+a.checkout.disabled,
+fieldset:disabled a.confirm, 
+fieldset:disabled a.next, 
+fieldset:disabled a.add_to_cart, 
+fieldset:disabled a.checkout {
+  pointer-events: none;
+}
+
+@each $color, $value in $theme-colors {
+  .confirm-#{$color} {
+    @include button-variant($value, $value);
+  }
+  .next-#{$color} {
+    @include button-variant($value, $value);
+  }
+  .add_to_cart-#{$color} {
+    @include button-variant($value, $value);
+  }
+  .checkout-#{$color} {
+    @include button-variant($value, $value);
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .confirm-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+  .next-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+  .add_to_cart-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+  .checkout-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+}
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.confirm-link,
+.next-link,
+.add_to_cart-link,
+.checkout-link {
+  font-weight: $font-weight-normal;
+  color: $link-color;
+  background-color: transparent;
+
+  @include hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: $link-hover-decoration;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+  }
+
+  // No need for an active state here
+}
+
+//
+// Block button
+//
+
+.confirm-block,
+.next-block,
+.add_to_cart-block,
+.checkout-block {
+  display: block;
+  width: 100%;
+
+  // Vertically space out multiple block buttons
+  + .confirm-block {
+    margin-top: $btn-block-spacing-y;
+  }
+  + .next-block {
+    margin-top: $btn-block-spacing-y;
+  }
+  + .add_to_cart-block {
+    margin-top: $btn-block-spacing-y;
+  }
+  + .checkout-block {
+    margin-top: $btn-block-spacing-y;
+  }
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.confirm-block {
+    width: 100%;
+  }
+  &.next-block {
+    width: 100%;
+  }
+  &.add_to_cart-block {
+    width: 100%;
+  }
+  &.checkout-block {
+    width: 100%;
+  }
+}

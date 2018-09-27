@@ -1,2 +1,5 @@
+build/
+vendor/
+.directory
 .sass-cache/
 *.css.map

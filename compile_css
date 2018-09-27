@@ -1,0 +1,2 @@
+#!/bin/bash
+sass --trace src/custom_isotope.scss build/custom_isotope.css
